@@ -1,0 +1,8 @@
+name: GoogleAntiGrief
+main: GoogleAntiGrief.MainClass
+version: 0.01
+author: TheFloatGoat
+commands:
+  vet:
+    description: This command uses google to vet users.
+    usage: "Usage: /vet [name] {keywords}"

@@ -23,7 +23,12 @@ public class Googler {
 
     public void Googler(String PlayerName, Boolean Broadcast, CommandSender Sender, String[] args){
 
-        Bukkit.broadcastMessage(prefix+"Looking up "+PlayerName);
+	if(Broadcast){
+	        Bukkit.broadcastMessage(prefix+"Looking up "+PlayerName);
+	}else{
+		Sender.sendMessage(prefix+"Looking up "+Playername);
+	}
+
 
         if(args !=null){
             String[] a = Arrays.copyOfRange(args, 1, args.length);      //Removes the fist item and converts it to a list

@@ -18,6 +18,7 @@ import java.util.List;
 public class Googler {
 
     String prefix = ChatColor.RED+"[GoogleAntiGrief] "+ChatColor.WHITE;
+	//TODO: add support for custom keywords
     List<String> keywords = Arrays.asList("ban", "hack","grief","report");
 
 

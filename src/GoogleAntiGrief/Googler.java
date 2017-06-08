@@ -5,7 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.jsoup.Jsoup;
 
 import java.net.URLEncoder;
@@ -19,7 +19,9 @@ public class Googler {
 
     String prefix = ChatColor.RED+"[GoogleAntiGrief] "+ChatColor.WHITE;
 	//TODO: add support for custom keywords
-    List<String> keywords = Arrays.asList("ban", "hack","grief","report");
+    List<String> Defaultkeywords = Arrays.asList("ban", "hack","grief","report");
+    List<String> keywords = getKeywords();
+
 
 
     public void Googler(String PlayerName, Boolean Broadcast, CommandSender Sender, String[] args){
@@ -27,7 +29,7 @@ public class Googler {
 	if(Broadcast){
 	        Bukkit.broadcastMessage(prefix+"Looking up "+PlayerName);
 	}else{
-		Sender.sendMessage(prefix+"Looking up "+Playername);
+		Sender.sendMessage(prefix+"Looking up "+PlayerName);
 	}
 
 
@@ -64,5 +66,24 @@ public class Googler {
 
         }
     }
+
+    public List<String> getKeywords(){
+
+        Plugin Self = Bukkit.getPluginManager().getPlugin("GoogleAntiGrief");
+
+        if(Self.getDataFolder().listFiles()==null||Self.getDataFolder().listFiles().length == 0){
+            Self.saveDefaultConfig();
+            Bukkit.getLogger().info("[GoogleAntiGrief] Saving default config....");
+        }else{
+            Bukkit.broadcastMessage(Self.getDataFolder().listFiles().toString());
+            try{
+            }catch(Exception e){
+                Bukkit.getLogger().info("[GoogleAntiGrief] config.yml is invalid, using default values.");
+            }
+        }
+
+        return Defaultkeywords;
+    }
+
 
 }

@@ -16,7 +16,9 @@ public class LoginListener implements Listener {
 
         Player p = e.getPlayer();
         Googler G = new Googler();
-
+        
+        //Todo: Add a function to check the Firstplayedtime against the current time
+        //to see if this it the first time the player joined the server.
         G.Googler(p.getName(), true, null, null);
     }
 

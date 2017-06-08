@@ -6,9 +6,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.jsoup.Jsoup;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,7 +21,9 @@ public class Googler {
 
     String prefix = ChatColor.RED+"[GoogleAntiGrief] "+ChatColor.WHITE;
 	//TODO: add support for custom keywords
-    List<String> keywords = Arrays.asList("ban", "hack","grief","report");
+    List<String> Defaultkeywords = Arrays.asList("ban", "hack","grief","report");
+    List<String> keywords = new ArrayList<>();
+    keywords = getKeywords();
 
 
     public void Googler(String PlayerName, Boolean Broadcast, CommandSender Sender, String[] args){
@@ -27,7 +31,7 @@ public class Googler {
 	if(Broadcast){
 	        Bukkit.broadcastMessage(prefix+"Looking up "+PlayerName);
 	}else{
-		Sender.sendMessage(prefix+"Looking up "+Playername);
+		Sender.sendMessage(prefix+"Looking up "+PlayerName);
 	}
 
 
@@ -64,5 +68,28 @@ public class Googler {
 
         }
     }
+
+    public String[] getKeywords(){
+
+        Plugin Self = Bukkit.getPluginManager().getPlugin("GoogleAntiGrief");
+
+        if(!(Self.getDataFolder().exists())){
+            Self.saveDefaultConfig();
+            System.out.println("Saving default config....");
+        }else{
+            try{
+                List<String> configKeywords = (List<String>) Self.getConfig().getList("keywords");
+                String[] CustomKeywords = new String[configKeywords.size()];
+                CustomKeywords = configKeywords.toArray(new String[CustomKeywords.length]);
+                System.out.println("Keywords found: "+keywords.toString());
+                return CustomKeywords;
+            }catch(Exception e){
+                System.out.println("config.yml is invalid, using default values.");
+            }
+        }
+
+        return Defaultkeywords.toArray(new String[Defaultkeywords.size()]);
+    }
+
 
 }

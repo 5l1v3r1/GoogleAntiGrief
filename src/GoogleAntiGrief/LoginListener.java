@@ -1,8 +1,5 @@
 package GoogleAntiGrief;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +16,10 @@ public class LoginListener implements Listener {
 
         Player p = e.getPlayer();
         Googler G = new Googler();
-        G.Googler(p.getName(), true, null, null);
+        MainClass mC = new MainClass();
+
+        String[] keywords = new String[mC.getKeywords().size()];
+        G.Googler(p.getName(), true, null, keywords);
     }
 
 }

@@ -4,9 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.List;
 
 /**
  * Created by rick on 5-6-17.
@@ -14,11 +14,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class MainClass extends JavaPlugin {
 
     String prefix = ChatColor.RED+"[GoogleAntiGrief] "+ChatColor.WHITE;
+    List keywords;
 
     @Override
     public void onEnable(){
-        Bukkit.getLogger().info(prefix+"GoogleAntiGrief loaded");
         getServer().getPluginManager().registerEvents(new LoginListener(), this);
+
+
+
+
     }
 
     @Override
@@ -44,5 +48,8 @@ public class MainClass extends JavaPlugin {
     }
 
 
+    public List getKeywords(){
+        return keywords;
+    }
 
 }

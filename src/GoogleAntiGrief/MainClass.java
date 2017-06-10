@@ -13,13 +13,9 @@ import java.util.List;
  */
 public class MainClass extends JavaPlugin {
 
-    String prefix = ChatColor.RED+"[GoogleAntiGrief] "+ChatColor.WHITE;
-    List keywords;
-
     @Override
     public void onEnable(){
         getServer().getPluginManager().registerEvents(new LoginListener(), this);
-
 
     }
 
@@ -46,8 +42,5 @@ public class MainClass extends JavaPlugin {
     }
 
 
-    public List getKeywords(){
-        return keywords;
-    }
 
 }

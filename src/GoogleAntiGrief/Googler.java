@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class Googler {
 
-    String prefix = ChatColor.RED+"[GoogleAntiGrief] "+ChatColor.WHITE;
-	//TODO: add support for custom keywords
+    String prefix = ChatColor.BLUE+"[GoogleAntiGrief] "+ChatColor.WHITE;
+
     List<String> Defaultkeywords = Arrays.asList("ban", "hack","grief","report");
     List<String> keywords = getKeywords();
 
@@ -45,11 +45,11 @@ public class Googler {
             String charset = "UTF-8";
 
 
-            String test = Jsoup.connect(google+URLEncoder.encode(search, charset)).userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
-                    .referrer("http://www.google.com").get().toString().toLowerCase();
+            String result = Jsoup.connect(google+URLEncoder.encode(search, charset)).userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+                    .referrer("http://www.google.com").get().body().text().toLowerCase();
 
             for(String s:keywords){
-                int i = StringUtils.countMatches(test, s.toLowerCase());
+                int i = StringUtils.countMatches(result, s.toLowerCase());
                 String msg = prefix+"Mentions of '"+s+"': "+i;
 
                 if(Broadcast){
@@ -75,8 +75,10 @@ public class Googler {
             Self.saveDefaultConfig();
             Bukkit.getLogger().info("[GoogleAntiGrief] Saving default config....");
         }else{
-            Bukkit.broadcastMessage(Self.getDataFolder().listFiles().toString());
+
             try{
+               return (List<String>) Self.getConfig().getList("keywords");
+
             }catch(Exception e){
                 Bukkit.getLogger().info("[GoogleAntiGrief] config.yml is invalid, using default values.");
             }
